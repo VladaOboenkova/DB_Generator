@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "insurance_option")
+@Table(name = "insurance_option", uniqueConstraints =
+@UniqueConstraint(columnNames = { "id_insurance", "id_insurance_type" }))
 public class InsuranceOption {
 
     @Id

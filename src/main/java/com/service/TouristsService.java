@@ -1,5 +1,7 @@
 package com.service;
 
+import com.entity.Order;
+import com.entity.PersonInfo;
 import com.entity.Tourists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,9 @@ public class TouristsService {
 
     public  List<Tourists> findAllForOrder(Long id_order){
         return touristsRepository.touristForOrder(id_order);
+    }
+
+    public Tourists findExistingTourists(Order id_order, PersonInfo id_person_info){
+        return touristsRepository.findExistingTourists(id_order, id_person_info);
     }
 }

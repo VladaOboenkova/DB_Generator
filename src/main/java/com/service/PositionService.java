@@ -32,4 +32,8 @@ public class PositionService {
     public List<Position> findAll() {
         return positionRepository.findAll();
     }
+
+    public Position findExistingPosition(String name) {
+        return positionRepository.findExistingPosition(name);
+    }
 }

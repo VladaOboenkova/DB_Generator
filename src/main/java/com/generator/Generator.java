@@ -90,11 +90,17 @@ public class Generator {
                 double phoneDouble = r.nextDouble();
                 if (phoneDouble >= 0.3) {
                     phone = DataGeneration.generatePhone(r);
+                    while (personInfoService.findPIByPhone(phone) != null){
+                        phone = DataGeneration.generatePhone(r);
+                    }
                 } else{
                     phone = null;
                 }
             } else {
                 phone = DataGeneration.generatePhone(r);
+                while (personInfoService.findPIByPhone(phone) != null){
+                    phone = DataGeneration.generatePhone(r);
+                }
             }
             personInfo.setPhone(phone);
             String email;
@@ -102,6 +108,9 @@ public class Generator {
                 double emailDouble = r.nextDouble();
                 if (emailDouble >= 0.3) {
                     email = DataGeneration.generateEmail(r);
+                    while (personInfoService.findPIByEmail(email) != null){
+                        email = DataGeneration.generateEmail(r);
+                    }
                 } else {
                     email = null;
                 }
@@ -114,11 +123,19 @@ public class Generator {
             if (age < 18){
                     intl_passport_num = DataGeneration.generateNumberSequence(2, r);
                     intl_passport_series = DataGeneration.generateNumberSequence(7, r);
+                while (personInfoService.findPIByPassport(intl_passport_num, intl_passport_series) != null){
+                    intl_passport_num = DataGeneration.generateNumberSequence(2, r);
+                    intl_passport_series = DataGeneration.generateNumberSequence(7, r);
+                }
             } else {
                 double intlPassportDouble = r.nextDouble();
                 if (intlPassportDouble >= 0.3){
                     intl_passport_num = DataGeneration.generateNumberSequence(2, r);
                     intl_passport_series = DataGeneration.generateNumberSequence(7, r);
+                    while (personInfoService.findPIByPassport(intl_passport_num, intl_passport_series) != null){
+                        intl_passport_num = DataGeneration.generateNumberSequence(2, r);
+                        intl_passport_series = DataGeneration.generateNumberSequence(7, r);
+                    }
                 } else {
                     intl_passport_num = null;
                     intl_passport_series = null;
@@ -133,7 +150,11 @@ public class Generator {
     public void generatePosition(PositionService positionService) {
         for (int i = 0; i < this.positionNumber; i++) {
             Position position = new Position();
-            position.setPosition_name(DataGeneration.generateText(4, false, false, r));
+            String position_name = DataGeneration.generateText(4, false, false, r);
+            while (positionService.findExistingPosition(position_name) != null) {
+                position_name = DataGeneration.generateText(4, false, false, r);
+            }
+            position.setPosition_name(position_name);
             position.setSalary(DataGeneration.generateMoney(15000, 70000, r));
             positionService.createPosition(position);
         }
@@ -142,7 +163,11 @@ public class Generator {
     public void generateTypeOfFood(TypeOfFoodService typeOfFoodService) {
         for (int i = 0; i < this.typeOfFoodNumber; i++) {
             TypeOfFood typeOfFood = new TypeOfFood();
-            typeOfFood.setType_of_food(DataGeneration.generateText(2, false, false, r));
+            String type_of_food = DataGeneration.generateText(2, false, false, r);
+            while (typeOfFoodService.findExistingToF(type_of_food) != null) {
+                type_of_food = DataGeneration.generateText(2, false, false, r);
+            }
+            typeOfFood.setType_of_food(type_of_food);
             typeOfFoodService.createTypeOfFood(typeOfFood);
         }
     }
@@ -150,7 +175,11 @@ public class Generator {
     public void generateTypeOfRoom(TypeOfRoomService typeOfRoomService) {
         for (int i = 0; i < this.typeOfRoomNumber; i++) {
             TypeOfRoom typeOfRoom = new TypeOfRoom();
-            typeOfRoom.setType_of_room(DataGeneration.generateText(2, true, true, r));
+            String type_of_room = DataGeneration.generateText(2, true, true, r);
+            while (typeOfRoomService.findExistingToR(type_of_room) != null) {
+                type_of_room = DataGeneration.generateText(2, true, true, r);
+            }
+            typeOfRoom.setType_of_room(type_of_room);
             typeOfRoomService.createTypeOfRoom(typeOfRoom);
         }
     }
@@ -158,7 +187,11 @@ public class Generator {
     public void generateCountry(CountryService countryService) {
         for (int i = 0; i < this.countryNumber; i++) {
             Country country = new Country();
-            country.setName(DataGeneration.generateText(3, false, true, r));
+            String name  = DataGeneration.generateText(3, false, true, r);
+            while (countryService.findExistingCountry(name) != null) {
+                name = DataGeneration.generateText(3, false, true, r);
+            }
+            country.setName(name);
             country.setNeed_insurance(DataGeneration.generateBoolean(r));
             country.setVisa(DataGeneration.generateBoolean(r));
             countryService.createCountry(country);
@@ -168,7 +201,11 @@ public class Generator {
     public void generateAddService(AddServiceService addServiceService) {
         for (int i = 0; i < this.addServiceNumber; i++) {
             AddService addService = new AddService();
-            addService.setName(DataGeneration.generateText(4, false, false, r));
+            String name = DataGeneration.generateText(4, false, false, r);
+            while (addServiceService.findExistingAddService(name) != null) {
+                name = DataGeneration.generateText(4, false, false, r);
+            }
+            addService.setName(name);
             addService.setSurcharge(DataGeneration.generateMoney(100, 10000, r));
             addServiceService.createAddService(addService);
         }
@@ -177,7 +214,11 @@ public class Generator {
     public void generateInsurance(InsuranceService insuranceService) {
         for (int i = 0; i < this.insuranceNumber; i++) {
             Insurance insurance = new Insurance();
-            insurance.setName(DataGeneration.generateText(2, false, true, r));
+            String name = DataGeneration.generateText(2, false, true, r);
+            while (insuranceService.findExistingInsurance(name) != null) {
+                name = DataGeneration.generateText(2, false, true, r);
+            }
+            insurance.setName(name);
             insurance.setOne_day_price(DataGeneration.generateMoney(200, 1000, r));
             insuranceService.createInsurance(insurance);
         }
@@ -186,7 +227,11 @@ public class Generator {
     public void generateInsuranceType(InsuranceTypeService insuranceTypeService) {
         for (int i = 0; i < this.insuranceTypeNumber; i++) {
             InsuranceType insuranceType = new InsuranceType();
-            insuranceType.setName(DataGeneration.generateText(5, false, false, r));
+            String name = DataGeneration.generateText(5, false, false, r);
+            while (insuranceTypeService.findExistingInsuranceType(name) != null) {
+                name = DataGeneration.generateText(5, false, false, r);
+            }
+            insuranceType.setName(name);
             insuranceTypeService.createInsuranceType(insuranceType);
         }
     }
@@ -229,9 +274,19 @@ public class Generator {
         for (int i = 0; i < this.clientNumber; i++) {
             Client client = new Client();
             List<PersonInfo> adults = personInfoService.findAllAdults();
-            client.setId_person_info(adults.get(r.nextInt(adults.size())));
-            client.setPassport_num(DataGeneration.generateNumberSequence(4, r));
-            client.setPassport_series(DataGeneration.generateNumberSequence(6, r));
+            PersonInfo personInfo = adults.get(r.nextInt(adults.size()));
+            while (clientService.findExistingClient(personInfo) != null) {
+                personInfo =  adults.get(r.nextInt(adults.size()));
+            }
+            client.setId_person_info(personInfo);
+            String passport_num = DataGeneration.generateNumberSequence(4, r);
+            String passport_series = DataGeneration.generateNumberSequence(6, r);
+            while (clientService.findExistingClientByPassport(passport_num, passport_series) != null) {
+                passport_num = DataGeneration.generateNumberSequence(4, r);
+                passport_series = DataGeneration.generateNumberSequence(6, r);
+            }
+            client.setPassport_num(passport_num);
+            client.setPassport_series(passport_series);
             clientService.createClient(client);
         }
     }
@@ -241,7 +296,11 @@ public class Generator {
         for (int i = 0; i < this.tourStaffNumber; i++) {
             TourStaff tourStaff = new TourStaff();
             List<PersonInfo> adults = personInfoService.findAllAdults();
-            tourStaff.setId_person_info(adults.get(r.nextInt(adults.size())));
+            PersonInfo personInfo = adults.get(r.nextInt(adults.size()));
+            while (tourStaffService.findExistingTS(personInfo) != null) {
+                personInfo =  adults.get(r.nextInt(adults.size()));
+            }
+            tourStaff.setId_person_info(personInfo);
             tourStaff.setId_position(positionService.findAll().get(r.nextInt(positionService.count() - 1) + 1));
             tourStaffService.createTourStaff(tourStaff);
         }
@@ -271,9 +330,16 @@ public class Generator {
                                        TourAddServiceService tourAddServiceService) {
         for (int i = 0; i < this.tourAddServiceNumber; i++) {
             TourAddService tourAddService = new TourAddService();
-            tourAddService.setId_tour(tourService.findAll().get(r.nextInt(tourService.count())));
-            tourAddService.setId_add_service(addServiceService.findAll()
-                    .get(r.nextInt(addServiceService.count())));
+            Tour id_tour = tourService.findAll().get(r.nextInt(tourService.count()));
+            AddService id_add_service = addServiceService.findAll()
+                    .get(r.nextInt(addServiceService.count()));
+            while (tourAddServiceService.findExistingTAS(id_tour, id_add_service) != null) {
+                id_tour = tourService.findAll().get(r.nextInt(tourService.count()));
+                id_add_service = addServiceService.findAll()
+                        .get(r.nextInt(addServiceService.count()));
+            }
+            tourAddService.setId_tour(id_tour);
+            tourAddService.setId_add_service(id_add_service);
             tourAddServiceService.createTourAddService(tourAddService);
         }
     }
@@ -282,19 +348,19 @@ public class Generator {
                                        PersonInfoService personInfoService) {
         for (int i = 0; i < this.touristsNumber; i++) {
             Tourists tourists = new Tourists();
-            tourists.setId_order(orderService.findAll().get(r.nextInt(orderService.count())));
-            int numberOfAdults = tourists.getId_order().getId_tour().getNum_of_adults();
-            int numberOfChildren = tourists.getId_order().getId_tour().getNum_of_children();
+            Order id_order = orderService.findAll().get(r.nextInt(orderService.count()));
+            int numberOfAdults = id_order.getId_tour().getNum_of_adults();
+            int numberOfChildren = id_order.getId_tour().getNum_of_children();
             int numberOfOrderTourists = numberOfAdults + numberOfChildren;
-            while (touristsService.findAllForOrder(tourists.getId_order().getId()).size() == numberOfOrderTourists){
-                tourists.setId_order(orderService.findAll().get(r.nextInt(orderService.count())));
-                numberOfAdults = tourists.getId_order().getId_tour().getNum_of_adults();
-                numberOfChildren = tourists.getId_order().getId_tour().getNum_of_children();
+            while (touristsService.findAllForOrder(id_order.getId()).size() == numberOfOrderTourists){
+                id_order = orderService.findAll().get(r.nextInt(orderService.count()));
+                numberOfAdults = id_order.getId_tour().getNum_of_adults();
+                numberOfChildren = id_order.getId_tour().getNum_of_children();
                 numberOfOrderTourists = numberOfAdults + numberOfChildren;
             }
             int actualAmountOfAdults = 0;
             int actualAmountOfChildren = 0;
-            for (Tourists t : touristsService.findAllForOrder(tourists.getId_order().getId())){
+            for (Tourists t : touristsService.findAllForOrder(id_order.getId())){
                 LocalDate dob = t.getId_person_info().getDob();
                 int age = Period.between(dob, LocalDate.now()).getYears();
                 if (age >= 18) {
@@ -305,42 +371,65 @@ public class Generator {
             }
             if (actualAmountOfAdults < numberOfAdults) {
                 List<PersonInfo> adults = personInfoService.findAllWithIntlPassport(true);
-                tourists.setId_person_info(adults.get(r.nextInt(adults.size())));
+                PersonInfo personInfo = adults.get(r.nextInt(adults.size()));
+                while (touristsService.findExistingTourists(id_order, personInfo) != null) {
+                    personInfo = adults.get(r.nextInt(adults.size()));
+                }
+                tourists.setId_person_info(personInfo);
             } else if (actualAmountOfChildren < numberOfChildren){
                 List<PersonInfo> children = personInfoService.findAllWithIntlPassport(false);
-                tourists.setId_person_info(children.get(r.nextInt(children.size())));
+                PersonInfo personInfo = children.get(r.nextInt(children.size()));
+                while (touristsService.findExistingTourists(id_order, personInfo) != null) {
+                    personInfo = children.get(r.nextInt(children.size()));
+                }
+                tourists.setId_person_info(personInfo);
             }
+            tourists.setId_order(id_order);
             touristsService.createTourists(tourists);
         }
     }
 
-    public void generateChoosenService(OrderService orderService, TourAddServiceService tourAddServiceService,
-                                 ChoosenServiceService choosenServiceService, AddServiceService addServiceService) {
+    public void generateChoosenService(TourAddServiceService tourAddServiceService,
+                                 ChoosenServiceService choosenServiceService) {
         for (int i = 0; i < this.choosenServiceNumber; i++) {
             ChoosenService choosenService = new ChoosenService();
-            choosenService.setId_order(orderService.findAll().get(r.nextInt(orderService.count())));
-            Long orderId = choosenService.getId_order().getId();
-            int numberOfAdults = choosenService.getId_order().getId_tour().getNum_of_adults();
-            int numberOfChildren = choosenService.getId_order().getId_tour().getNum_of_children();
-            int numberOfOrderTourists = numberOfAdults + numberOfChildren;
-            List<Long> availableForOrder = tourAddServiceService
-                    .findAddServiceForTour(orderService.findById(orderId).getId_tour().getId());
-            if (availableForOrder.size() != 0) {
-                choosenService.setId_add_service(addServiceService
-                        .findById(availableForOrder.get(r.nextInt(availableForOrder.size()))));
+            List<Order> availableOrders = choosenServiceService.availableForChoosenService();
+            if (availableOrders.size() == 0) {
+                System.out.println("No orders available");
+                break;
+            }
+            else {
+                Order order = availableOrders.get(r.nextInt(availableOrders.size()));
+                List<AddService> availableASForOrder = tourAddServiceService
+                        .findAddServiceForTour(order.getId_tour());
+                int numberOfAdults = order.getId_tour().getNum_of_adults();
+                int numberOfChildren = order.getId_tour().getNum_of_children();
+                int numberOfOrderTourists = numberOfAdults + numberOfChildren;
+                AddService addService = availableASForOrder.get(r.nextInt(availableASForOrder.size()));
+                while (choosenServiceService.findExistingCS(order, addService) != null) {
+                    addService = availableASForOrder.get(r.nextInt(availableASForOrder.size()));
+                }
+                choosenService.setId_add_service(addService);
+                choosenService.setId_order(order);
                 choosenService.setAmount(DataGeneration.generateNumber(1, numberOfOrderTourists, r));
                 choosenServiceService.createChoosenService(choosenService);
             }
+            }
         }
-    }
 
     public void generateInsuranceOption(InsuranceService insuranceService, InsuranceTypeService insuranceTypeService,
                                         InsuranceOptionService insuranceOptionService) {
         for (int i = 0; i < this.insuranceOptionNumber; i++) {
             InsuranceOption insuranceOption = new InsuranceOption();
-            insuranceOption.setId_insurance(insuranceService.findAll().get(r.nextInt(insuranceService.count())));
-            insuranceOption.setId_insurance_type(insuranceTypeService.findAll()
-                    .get(r.nextInt(insuranceTypeService.count())));
+            Insurance insurance = insuranceService.findAll().get(r.nextInt(insuranceService.count()));
+            InsuranceType insuranceType = insuranceTypeService.findAll()
+                    .get(r.nextInt(insuranceTypeService.count()));
+            while (insuranceOptionService.findzexistingIO(insurance, insuranceType) != null){
+                insuranceType = insuranceTypeService.findAll()
+                        .get(r.nextInt(insuranceTypeService.count()));
+            }
+            insuranceOption.setId_insurance(insurance);
+            insuranceOption.setId_insurance_type(insuranceType);
             insuranceOption.setSum_insured(DataGeneration.generateMoney(1000, 200000, r));
             insuranceOptionService.createInsuranceOption(insuranceOption);
         }
@@ -351,8 +440,16 @@ public class Generator {
         for (int i = 0; i < this.personInsuranceNumber; i++) {
             PersonInsurance personInsurance = new PersonInsurance();
             personInsurance.setId_insurance(insuranceService.findAll().get(r.nextInt(insuranceService.count())));
-            personInsurance.setTourists(touristsService.findAll().get(r.nextInt(touristsService.count())));
-            personInsurance.setPolicy_num(DataGeneration.generatePolicyNumber(r));
+            Tourists tourists = touristsService.findAll().get(r.nextInt(touristsService.count()));
+            while (personInsuranceService.findPI(tourists) != null) {
+                tourists = touristsService.findAll().get(r.nextInt(touristsService.count()));
+            }
+            personInsurance.setTourists(tourists);
+            String policy_num = DataGeneration.generatePolicyNumber(r);
+            while (personInsuranceService.findPI_PN(policy_num) != null) {
+                policy_num = DataGeneration.generatePolicyNumber(r);
+            }
+            personInsurance.setPolicy_num(policy_num);
             personInsuranceService.createPersonInsurance(personInsurance);
         }
     }

@@ -1,6 +1,7 @@
 package com.service;
 
 import com.entity.Client;
+import com.entity.PersonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.repository.ClientRepository;
@@ -44,6 +45,14 @@ public class ClientService {
             }
         }
         return  suitableClients;
+    }
+
+    public Client findExistingClient(PersonInfo personInfo){
+        return clientRepository.findExistingClient(personInfo);
+    }
+
+    public Client findExistingClientByPassport(String passport_num, String passport_series){
+        return clientRepository.findExistingClientByPassport(passport_num, passport_series);
     }
 
 }

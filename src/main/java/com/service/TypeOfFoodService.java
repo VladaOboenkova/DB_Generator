@@ -32,5 +32,9 @@ public class TypeOfFoodService {
     public List<TypeOfFood> findAll() {
         return typeOfFoodRepository.findAll();
     }
+
+    public TypeOfFood findExistingToF(String typeOfFood) {
+        return typeOfFoodRepository.findExistingToF(typeOfFood);
+    }
 }
 

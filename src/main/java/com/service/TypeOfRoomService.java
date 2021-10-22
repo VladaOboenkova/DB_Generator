@@ -32,4 +32,8 @@ public class TypeOfRoomService {
     public List<TypeOfRoom> findAll() {
         return typeOfRoomRepository.findAll();
     }
+
+    public TypeOfRoom findExistingToR(String typeOfRoom) {
+        return typeOfRoomRepository.findExistingToR(typeOfRoom);
+    }
 }

@@ -113,8 +113,7 @@ import com.service.*;
             generator.generateOrder(orderService, toursService, clientService, tourStaffService);
             generator.generateTourists(touristsService, orderService, personInfoService);
             generator.generateTourAddService(toursService, addServiceService, tourAddServiceService);
-            generator.generateChoosenService(orderService, tourAddServiceService,
-                    choosenServiceService, addServiceService);
+            generator.generateChoosenService(tourAddServiceService, choosenServiceService);
             generator.generateInsurance(insuranceService);
             generator.generateInsuranceType(insuranceTypeService);
             generator.generateInsuranceOption(insuranceService, insuranceTypeService, insuranceOptionService);

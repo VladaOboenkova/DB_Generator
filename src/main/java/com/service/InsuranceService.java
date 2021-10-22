@@ -32,4 +32,8 @@ public class InsuranceService {
     public List<Insurance> findAll() {
         return insuranceRepository.findAll();
     }
+
+    public Insurance findExistingInsurance(String name){
+        return insuranceRepository.findExistingInsurance(name);
+    }
 }

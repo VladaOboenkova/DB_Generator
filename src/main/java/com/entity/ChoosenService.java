@@ -5,7 +5,8 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "choosen_service")
+@Table(name = "choosen_service", uniqueConstraints =
+@UniqueConstraint(columnNames = { "id_order", "id_add_service" }))
 public class ChoosenService {
 
     @Id

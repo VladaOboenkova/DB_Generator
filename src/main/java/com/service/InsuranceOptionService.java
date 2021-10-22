@@ -1,5 +1,6 @@
 package com.service;
 
+import com.entity.Insurance;
 import com.entity.InsuranceOption;
 import com.entity.InsuranceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class InsuranceOptionService {
             insuranceTypeAndCostForInsurance.put(io.getId_insurance_type(), io.getSum_insured());
         }
         return insuranceTypeAndCostForInsurance;
+    }
+
+    public InsuranceOption findzexistingIO(Insurance insurance, InsuranceType insuranceType){
+        return insuranceOptionRepository.findExistingIO(insurance, insuranceType);
     }
 }

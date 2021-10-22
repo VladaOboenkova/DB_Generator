@@ -1,5 +1,6 @@
 package com.service;
 
+import com.entity.PersonInfo;
 import com.entity.TourStaff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,24 @@ public class TourStaffService {
         return tourStaffRepository.findAll();
     }
 
+//    public List<TourStaff> findAllManagers(){
+//        List<TourStaff> tourStaff = findAll();
+//        List<TourStaff> managers = new ArrayList<>();
+//        for (TourStaff ts : tourStaff) {
+//            if (ts.getId_position().getPosition_name().equals("Менеджер") ||
+//                    ts.getId_position().getPosition_name().equals("Старший менеджер")){
+//                managers.add(ts);
+//            }
+//        }
+//        return managers;
+//    }
+
     public List<TourStaff> findAllManagers(){
-        List<TourStaff> tourStaff = findAll();
-        List<TourStaff> managers = new ArrayList<>();
-        for (TourStaff ts : tourStaff) {
-            if (ts.getId_position().getPosition_name().equals("Менеджер") ||
-                    ts.getId_position().getPosition_name().equals("Старший менеджер")){
-                managers.add(ts);
-            }
-        }
-        return managers;
+        return tourStaffRepository.findManagers();
+    }
+
+    public TourStaff findExistingTS(PersonInfo personInfo){
+        return tourStaffRepository.findExistingTS(personInfo);
     }
 }
 

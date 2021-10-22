@@ -1,5 +1,6 @@
 package com.service;
 
+import com.entity.Insurance;
 import com.entity.InsuranceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,9 @@ public class InsuranceTypeService {
 
     public List<InsuranceType> findAll() {
         return insuranceTypeRepository.findAll();
+    }
+
+    public InsuranceType findExistingInsuranceType(String name){
+        return insuranceTypeRepository.findExistingInsuranceType(name);
     }
 }

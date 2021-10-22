@@ -59,4 +59,16 @@ public class PersonInfoService {
             return allChildrenWithIntlPassport;
         }
     }
+
+    public PersonInfo findPIByPhone(String phone){
+        return personInfoRepository.findPIByPhone(phone);
+    }
+
+    public PersonInfo findPIByEmail(String email){
+        return personInfoRepository.findPIByEmail(email);
+    }
+
+    public PersonInfo findPIByPassport(String intl_passport_num, String intl_passport_series){
+        return personInfoRepository.findPIByPassport(intl_passport_num, intl_passport_series);
+    }
 }

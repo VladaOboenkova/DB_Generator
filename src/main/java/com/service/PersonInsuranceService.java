@@ -1,6 +1,7 @@
 package com.service;
 
 import com.entity.PersonInsurance;
+import com.entity.Tourists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.repository.PersonInsuranceRepository;
@@ -31,5 +32,13 @@ public class PersonInsuranceService {
 
     public List<PersonInsurance> findAll() {
         return personInsuranceRepository.findAll();
+    }
+
+    public PersonInsurance findPI(Tourists tourists) {
+        return personInsuranceRepository.findPI(tourists);
+    }
+
+    public PersonInsurance findPI_PN(String policy_num){
+        return personInsuranceRepository.findPI_PN(policy_num);
     }
 }

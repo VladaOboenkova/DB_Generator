@@ -34,4 +34,8 @@ public class AddServiceService {
     public List<AddService> findAll() {
         return addServiceRepository.findAll();
     }
+
+    public AddService findExistingAddService(String name){
+        return addServiceRepository.findExistingAddService(name);
+    }
 }
